@@ -1,0 +1,172 @@
+html {
+	font-size: 16px;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #5291a7;
+}
+
+.mainContainer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.loginContainer,
+.insurancesDetails {
+	font-family: Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
+	background-color: #ffffff;
+	padding: 20px;
+	border-radius: 10px;
+}
+
+.loginContainer {
+	position: absolute;
+	top: 44%;
+	margin: -25px 0 0 -25px;
+}
+
+.loginContainer h3 {
+	line-height: 0.5em;
+}
+
+.insurancesDetails {
+	margin-top: 5%;
+	max-width: 650px;
+	padding-top: 5px;
+}
+
+.insurancesDetails .header {
+	display: flex;
+	justify-content: space-between;
+}
+
+button {
+	background-color: #c8007e;
+	border: none;
+	color: white;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	border-radius: 13px;
+	align-self: baseline;
+}
+button:hover {
+	cursor: pointer;
+}
+
+.insurancesDetails .header button {
+	padding: 15px 32px;
+	align-self: center;
+}
+.insurancesDetails .card {
+	background-color: #f0f6f9;
+	padding: 20px;
+	border-radius: 10px;
+	margin-bottom: 20px;
+}
+
+.insurancesDetails .card h3 {
+	margin-top: 0;
+}
+
+.insurancesDetails .card p {
+	color: #464646;
+	line-height: 1.3em;
+}
+
+.insurancesDetails .card a {
+	background-color: #ffffff;
+	border: none;
+	color: #c8007e;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	border-radius: 13px;
+	align-self: baseline;
+	padding: 5px 15px;
+}
+
+.insurancesDetails .card button {
+	background-color: #f0f6f9;
+	color: #c8007e;
+}
+
+.loginContainer div {
+	display: flex;
+	flex-direction: column;
+}
+
+.loginContainer div button {
+	padding: 4px 17px;
+	margin-top: 10px;
+}
+
+.loginContainer div input[type='text'] {
+	display: inline-block;
+	border: 1px solid #c8007e;
+	border-radius: 4px;
+	box-sizing: border-box;
+	padding: 3px 5px;
+}
+
+.errorStyle {
+	color: #c8007e;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+	h3 {
+		word-break: break-word;
+		text-align: center;
+		margin-top: revert;
+	}
+
+	.loginContainer {
+		margin: o auto;
+	}
+
+	.insurancesDetails .header button {
+		padding: 7px 19px;
+		border-radius: 7px;
+	}
+
+	.loginContainer h3 {
+		line-height: 1em;
+	}
+
+	.loginContainer div {
+		align-items: center;
+	}
+
+	.insurancesDetails .card h3 {
+		text-align: left;
+	}
+
+	.insurancesDetails .card p {
+		line-height: 1.5em;
+	}
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 320px) {
+	html {
+		font-size: calc(16px + 6 * ((100vw - 320px) / 680)); /* calculate the font-size on the fly */
+	}
+
+	h3 {
+		margin-top: revert;
+	}
+
+	.insurancesDetails .header button {
+		padding: 9px 18px;
+	}
+}
+
+@media screen and (min-width: 1000px) {
+	html {
+		font-size: 18px;
+	}
+}

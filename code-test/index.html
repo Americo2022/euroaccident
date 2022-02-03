@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script type="text/javascript" src="./DataAccess/API-repository.js"></script>
+		<script type="text/javascript" src="./Utils//utilities.js"></script>
+		<link rel="stylesheet" href="./Styles/styles.css" />
+		<title>Test</title>
+	</head>
+	<body>
+		<div class="mainContainer">
+			<div id="loginContainer">
+				<form>
+					<h3>Logga in med ditt användarnamn</h3>
+					<div>
+						<div>
+							<input type="text" id="userName" placeholder="Ange ditt användarnamn" />
+						</div>
+						<div>
+							<button
+								type="button"
+								onclick="utilities.checkUser(document.getElementById('userName').value)"
+							>
+								Logga in
+							</button>
+						</div>
+					</div>
+				</form>
+				<!-- used inline style to manage visibility with JS -->
+				<div id="errorMessage" class="errorStyle" style="display: none">
+					<p>Användare finns inte</p>
+				</div>
+			</div>
+
+			<!-- used inline style to manage visibility with JS -->
+			<div id="insurancesDetail" style="display: none">
+				<p>insurances details</p>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			let utilities = new Utilities();
+		</script>
+	</body>
+</html>
