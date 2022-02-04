@@ -17,8 +17,8 @@ export const LoginComponent = () => {
     /**
      * Method for fetching data from repository
      * It uses a paramater containing the user name provided by the user
-     * It resturn type is void promise. 
-     * @param userName 
+     * It resturn type is void promise.
+     * @param userName
      */
     const handleSubmit = async (userName: string): Promise<void> => {
         /**
@@ -41,72 +41,63 @@ export const LoginComponent = () => {
         let query: string = `?login=${userName}`;
 
         /**
-         * Call to the get method in MainRepository class and wait for a 
+         * Call to the get method in MainRepository class and wait for a
          * response from API repository. Response type is an array of users.
          * It uses get() instad of findOne() because userName property is a string.
          */
-        await userRepository.get(query).then(async (response: IUser[]) => {
+        const user: IUser[] = await userRepository.get(query);
+
+        if (user.length > 0) {
+            userId = user[0].id;
+            name = user[0].name;
+            setName(name);
+            setShowLogin(false);
+
             /**
-             * If there is a response containing data 
-             * then extract the needed values and set them to the state
+             * Fetch all insurances connected to the users
              */
-            if (response.length > 0) {
-                userId = response[0].id;
-                name = response[0].name;
-                setName(name);
-                setShowLogin(false)
 
-                /**
-                 * Fetch all insurances connected to the users,
-                 * if the "id" in the response match the userId a 
-                 * search for his/hers insurance/s can be made
-                 */
-                await userInsuranceRepository.get().then(async (response: any[]) => {
-                    for (let x in response) {
-                        if (x === userId.toString()) {
+            const userInsurances = await userInsuranceRepository.get();
 
-                            /**
-                             * Search for the user's insurences
-                             * It return an array of insurances and then 
-                             * filter donwn the result to only the user's insureances
-                             * and save them in an array
-                             */
-                            await insuranceRepository.get().then((res: IInsurance[]) => {
-                                response[x].forEach(async element => {
-                                    let insurances = res.find(r => r.id === element);
-                                    insuranceArray.push(insurances);
-                                })
-                                /** 
-                                 * return the array with insurances
-                                 */
-                                return insuranceArray;
-                            }).then((insuranceArray) => {
-                                /**
-                                 * and set them in state
-                                 */
-                                setInsurances(insuranceArray);
-                            })
+            /**
+             * Fetch insurences
+             * It return an array of insurances
+             */
+            const insurances: IInsurance[] = await insuranceRepository.get();
 
-                        }
-                    }
-                })
-            } else {
-                /**
-                 * If the user doesn't exists show a error
-                 */
-                setShowError(true)
+            /**
+             *  If the "id" in the response match the userId a
+             * search for his/hers insurance/s can be made
+             */
+            for (let x in userInsurances) {
+                if (x === userId.toString()) {
+                    insurances.forEach((insurance) => {
+                        /**
+                         * Filter the result to only the user's insureances
+                         * and save them in an array
+                         */
+                        let ins = insurances.find((r) => r.id === insurance.id);
+                        insuranceArray.push(ins);
+                    });
+
+                    /**
+                     * and set them in state
+                     */
+                    setInsurances(insuranceArray);
+                }
             }
-
-        });
-
-    }
+        } else {
+            /**
+             * If the user doesn't exists show a error
+             */
+            setShowError(true);
+        }
+    };
 
     return (
         <>
             {/* Show the login component only if not users were found */}
-            {showLogin && (
-                <LoginForm handleSubmit={handleSubmit} showError={showError} />
-            )}
+            {showLogin && <LoginForm handleSubmit={handleSubmit} showError={showError} />}
 
             {/* 
                 Show the insurance detail component only if there are insureances to show. 
@@ -115,8 +106,6 @@ export const LoginComponent = () => {
             {insurances !== undefined && insurances.length > 0 && (
                 <InsuranceDetail insurances={insurances} name={name} />
             )}
-
         </>
-    )
-}
-
+    );
+};
